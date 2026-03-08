@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClipForge AI — Turn Long Videos into Viral Shorts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #5b21b6;
+    --purple-light: #7c3aed;
+    --purple-dark: #3b0764;
+    --purple-bg: #f5f3ff;
+    --purple-mid: #ede9fe;
+    --text: #0f0a1e;
+    --text2: #4b4869;
+    --text3: #9390a8;
+    --border: #e5e2f0;
+    --white: #ffffff;
+    --bg: #fafafa;
+    --green: #16a34a;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 800; font-size: 1.25rem; letter-spacing: -0.5px;
+    color: var(--text); text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--purple-light), var(--purple));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 0.9rem; font-weight: 800;
+  }
+
+  .nav-center {
+    display: flex; align-items: center; gap: 0.25rem;
+  }
+
+  .nav-link {
+    display: flex; align-items: center; gap: 4px;
+    padding: 8px 14px; border-radius: 8px;
+    color: var(--text2); text-decoration: none;
+    font-size: 0.875rem; font-weight: 500;
+    transition: all 0.15s;
+  }
+
+  .nav-link:hover {
+    background: var(--purple-bg);
+    color: var(--purple);
+  }
+
+  .nav-right {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .btn-signin {
+    color: var(--text2); text-decoration: none;
+    font-size: 0.875rem; font-weight: 600;
+    padding: 8px 16px; border-radius: 8px;
+    transition: all 0.15s;
+  }
+
+  .btn-signin:hover { background: var(--purple-bg); color: var(--purple); }
+
+  .btn-nav-cta {
+    background: var(--purple);
+    color: white; text-decoration: none;
+    font-size: 0.875rem; font-weight: 700;
+    padding: 9px 20px; border-radius: 8px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-nav-cta:hover {
+    background: var(--purple-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(91,33,182,0.3);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 5% 56px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-mid);
+    color: var(--purple);
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.5s ease forwards;
+    opacity: 0; animation-delay: 0.05s;
+  }
+
+  .badge-live {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.6; }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -2.5px;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.5s ease forwards;
+    opacity: 0; animation-delay: 0.15s;
+  }
+
+  .hero h1 .purple { color: var(--purple-light); }
+
+  .hero-sub {
+    font-size: 1.125rem;
+    color: var(--text2);
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    font-weight: 400;
+    line-height: 1.65;
+    animation: fadeUp 0.5s ease forwards;
+    opacity: 0; animation-delay: 0.25s;
+  }
+
+  .hero-actions {
+    display: flex; align-items: center; gap: 0.75rem;
+    justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.5s ease forwards;
+    opacity: 0; animation-delay: 0.35s;
+  }
+
+  .btn-cta-primary {
+    background: var(--purple);
+    color: white; text-decoration: none;
+    font-size: 0.95rem; font-weight: 700;
+    padding: 13px 28px; border-radius: 10px;
+    border: none; cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  .btn-cta-primary:hover {
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(91,33,182,0.35);
+  }
+
+  .btn-cta-secondary {
+    background: white;
+    color: var(--text); text-decoration: none;
+    font-size: 0.95rem; font-weight: 600;
+    padding: 13px 28px; border-radius: 10px;
+    border: 1.5px solid var(--border); cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  .btn-cta-secondary:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+    background: var(--purple-bg);
+  }
+
+  .hero-note {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text3);
+    margin-top: 0.75rem;
+    animation: fadeUp 0.5s ease forwards;
+    opacity: 0; animation-delay: 0.4s;
+  }
+
+  /* ── VIDEO COVER ── */
+  .hero-cover {
+    max-width: 900px;
+    margin: 3rem auto 0;
+    animation: fadeUp 0.7s ease forwards;
+    opacity: 0; animation-delay: 0.5s;
+    padding: 0 4%;
+  }
+
+  .hero-cover-inner {
+    background: linear-gradient(160deg, #f3f0ff 0%, #ede9fe 60%, #ddd6fe 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(91,33,182,0.12), 0 4px 16px rgba(0,0,0,0.06);
+    aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .cover-clips {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 2rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cover-long {
+    background: white;
+    border-radius: 14px;
+    width: 260px; height: 160px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .cover-timeline {
+    position: absolute;
+    bottom: 10px; left: 12px; right: 12px;
+    height: 4px; background: #e5e2f0; border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cover-timeline-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+    width: 40%;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .cover-timeline-fill::after {
+    content: '';
+    position: absolute;
+    right: -1px; top: -3px;
+    width: 10px; height: 10px;
+    background: var(--purple);
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+
+  .play-btn {
+    width: 48px; height: 48px;
+    background: var(--purple);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: transform 0.2s;
+    box-shadow: 0 4px 16px rgba(91,33,182,0.3);
+    border: none;
+  }
+
+  .play-btn svg { width: 18px; height: 18px; fill: white; margin-left: 2px; }
+  .play-btn:hover { transform: scale(1.08); }
+
+  .video-duration {
+    font-size: 0.7rem; font-weight: 600;
+    color: var(--text3);
+  }
+
+  .cover-arrow {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .ai-pill {
+    background: var(--purple);
+    color: white; font-size: 0.7rem; font-weight: 700;
+    padding: 5px 12px; border-radius: 100px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  .arrow-line {
+    width: 48px; height: 2px;
+    background: linear-gradient(90deg, var(--purple-mid), var(--purple));
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .arrow-line::after {
+    content: '▶';
+    position: absolute;
+    right: -8px; top: -7px;
+    color: var(--purple); font-size: 0.7rem;
+  }
+
+  .cover-shorts {
+    display: flex; gap: 0.75rem;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .short-thumb {
+    background: white;
+    border-radius: 10px;
+    width: 68px; height: 120px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding: 8px 6px;
+    position: relative;
+  }
+
+  .short-thumb:nth-child(1) { animation: float1 3s ease-in-out infinite; }
+  .short-thumb:nth-child(2) { animation: float2 3.4s ease-in-out infinite 0.3s; }
+  .short-thumb:nth-child(3) { animation: float1 2.8s ease-in-out infinite 0.6s; }
+
+  .short-thumb-bg {
+    position: absolute; inset: 0; border-radius: 10px;
+  }
+
+  .short-thumb:nth-child(1) .short-thumb-bg { background: linear-gradient(160deg, #f3f0ff, #c4b5fd); }
+  .short-thumb:nth-child(2) .short-thumb-bg { background: linear-gradient(160deg, #faf5ff, #a78bfa); }
+  .short-thumb:nth-child(3) .short-thumb-bg { background: linear-gradient(160deg, #ede9fe, #8b5cf6); }
+
+  .short-label {
+    position: relative; z-index: 1;
+    font-size: 0.6rem; font-weight: 700;
+    color: white;
+    background: rgba(0,0,0,0.35); backdrop-filter: blur(4px);
+    padding: 2px 6px; border-radius: 4px;
+  }
+
+  .platform-dots {
+    position: relative; z-index: 1;
+    display: flex; gap: 3px; margin-bottom: 3px;
+  }
+
+  .p-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.55rem; color: white; font-weight: 700;
+  }
+
+  .p-tiktok { background: #010101; }
+  .p-insta { background: #e1306c; }
+  .p-yt { background: #ff0000; }
+
+  .clip-count-badge {
+    position: absolute;
+    top: -10px; right: -10px;
+    background: var(--purple);
+    color: white; font-size: 0.62rem; font-weight: 800;
+    padding: 4px 8px; border-radius: 100px;
+    white-space: nowrap; z-index: 2;
+    box-shadow: 0 2px 8px rgba(91,33,182,0.4);
+  }
+
+  @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes float2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  /* ── MARQUEE ── */
+  .marquee-section {
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .marquee-label {
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-item {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text3);
+    white-space: nowrap;
+    letter-spacing: -0.3px;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+
+  .marquee-item .dot { color: var(--border); }
+
+  /* ── RATINGS ── */
+  .ratings-section {
+    padding: 32px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    background: white;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rating-card {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s;
+  }
+
+  .rating-card:hover {
+    border-color: var(--purple-mid);
+    box-shadow: 0 4px 16px rgba(91,33,182,0.08);
+  }
+
+  .rating-stars { display: flex; gap: 2px; }
+  .star { color: #f59e0b; font-size: 0.85rem; }
+  .rating-num { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+  .rating-source { font-size: 0.72rem; font-weight: 600; color: var(--text3); }
+  .rating-divider { width: 1px; height: 28px; background: var(--border); }
+
+  .total-users { text-align: center; padding: 4px 16px; }
+  .total-users-num { font-size: 1.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+  .total-users-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; }
+
+  /* ── SECTIONS ── */
+  section { padding: 96px 5%; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.72rem; font-weight: 700;
+    color: var(--purple); letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: var(--purple-bg);
+    padding: 5px 12px; border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text2);
+    max-width: 480px;
+    line-height: 1.65;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { background: var(--bg); }
+  .how-header { text-align: center; margin-bottom: 4rem; }
+  .how-header .section-desc { margin: 0 auto; }
+
+  .steps-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .step-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+
+  .step-card:hover {
+    border-color: var(--purple-mid);
+    box-shadow: 0 8px 32px rgba(91,33,182,0.1);
+    transform: translateY(-4px);
+  }
+
+  .step-number {
+    font-size: 0.7rem; font-weight: 700;
+    color: var(--purple); letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .step-icon-wrap {
+    width: 52px; height: 52px;
+    background: var(--purple-bg);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-card h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+  .step-card p { font-size: 0.875rem; color: var(--text2); line-height: 1.55; }
+
+  /* ── FEATURES ── */
+  .features-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .features-left { position: sticky; top: 96px; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .feat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+  }
+
+  .feat-card:hover {
+    border-color: var(--purple-mid);
+    box-shadow: 0 6px 24px rgba(91,33,182,0.09);
+    transform: translateY(-2px);
+  }
+
+  .feat-emoji { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+  .feat-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+  .feat-card p { font-size: 0.8rem; color: var(--text2); line-height: 1.5; }
+
+  .feat-badge {
+    display: inline-block;
+    font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 4px;
+    margin-top: 0.5rem;
+  }
+
+  .badge-new { background: #dcfce7; color: #16a34a; }
+  .badge-pro { background: #fef3c7; color: #d97706; }
+  .badge-ai  { background: var(--purple-bg); color: var(--purple); }
+
+  /* ── DASHBOARD ── */
+  .dashboard-section { background: var(--bg); padding-bottom: 0; }
+
+  .dashboard-header {
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .browser-frame {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: white;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    box-shadow: 0 -4px 40px rgba(91,33,182,0.08), 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .browser-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .br-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .br-dot:nth-child(1) { background: #ff5f57; }
+  .br-dot:nth-child(2) { background: #febc2e; }
+  .br-dot:nth-child(3) { background: #28c840; }
+
+  .br-url {
+    margin-left: 0.75rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 16px;
+    font-size: 0.75rem;
+    color: var(--text3);
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    min-height: 520px;
+  }
+
+  .app-sidebar {
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    padding: 1.25rem 0.75rem;
+  }
+
+  .sidebar-group-label {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text3);
+    padding: 0.5rem 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .sidebar-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 8px 10px; border-radius: 8px;
+    font-size: 0.83rem; font-weight: 500;
+    color: var(--text2);
+    cursor: pointer; transition: all 0.15s;
+  }
+
+  .sidebar-item:hover { background: var(--purple-mid); color: var(--purple); }
+  .sidebar-item.active { background: var(--purple-bg); color: var(--purple); font-weight: 600; }
+
+  .app-main {
+    padding: 1.75rem;
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+
+  .app-main-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    background: var(--bg);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .upload-zone:hover {
+    border-color: var(--purple);
+    background: var(--purple-bg);
+  }
+
+  .upload-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+  .upload-zone h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .upload-zone p { font-size: 0.78rem; color: var(--text3); }
+
+  .url-row { display: flex; gap: 0.5rem; }
+
+  .url-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .url-input::placeholder { color: var(--text3); }
+  .url-input:focus { border-color: var(--purple); }
+
+  .settings-chips-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+  .chip-group-wrap label {
+    display: block;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 0.4rem;
+  }
+
+  .chip-group { display: flex; gap: 0.35rem; }
+
+  .chip {
+    padding: 5px 12px; border-radius: 100px;
+    border: 1.5px solid var(--border);
+    font-size: 0.75rem; font-weight: 600;
+    color: var(--text2); cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: white;
+  }
+
+  .chip:hover { border-color: var(--purple); color: var(--purple); }
+
+  .chip.active {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: white;
+  }
+
+  .progress-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+
+  .progress-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.6rem;
+  }
+
+  .progress-top span:first-child { font-size: 0.8rem; font-weight: 600; }
+  .progress-pct { font-size: 0.8rem; font-weight: 700; color: var(--purple); }
+
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; overflow: hidden; }
+
+  .progress-bar-fill {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+    animation: prog 4s ease-in-out infinite;
+  }
+
+  @keyframes prog {
+    0% { width: 0%; }
+    70% { width: 78%; }
+    100% { width: 78%; }
+  }
+
+  .progress-sub { font-size: 0.72rem; color: var(--text3); margin-top: 0.4rem; }
+
+  /* ── PIPELINE ── */
+  .pipeline-section { background: var(--bg); }
+
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .pipeline-steps { display: flex; flex-direction: column; }
+
+  .p-step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem 0;
+    position: relative;
+  }
+
+  .p-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px; top: 56px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--purple-mid), transparent);
+  }
+
+  .p-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-mid);
+  }
+
+  .p-step h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .p-step p { font-size: 0.8rem; color: var(--text2); }
+
+  .terminal {
+    background: #0d0d1a;
+    border: 1px solid #2d2d4e;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .terminal-top {
+    display: flex; align-items: center; gap: 6px;
+    padding: 12px 16px;
+    background: #15152a;
+    border-bottom: 1px solid #2d2d4e;
+  }
+
+  .t-d { width: 10px; height: 10px; border-radius: 50%; }
+  .t-d:nth-child(1) { background: #ff5f57; }
+  .t-d:nth-child(2) { background: #febc2e; }
+  .t-d:nth-child(3) { background: #28c840; }
+  .terminal-title { font-size: 0.72rem; color: #6b6b8a; margin-left: 0.5rem; }
+
+  .terminal-body {
+    padding: 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.76rem;
+    line-height: 1.9;
+  }
+
+  .tl { display: flex; gap: 0.6rem; }
+  .tp { color: #7c3aed; }
+  .tc { color: #e8e8f0; }
+  .to { color: #6b6b8a; }
+  .ts { color: #4ade80; }
+  .tw { color: #a78bfa; }
+
+  .t-prog-bar { background: #1f1f3a; border-radius: 3px; height: 4px; margin: 4px 0 4px 1.2rem; overflow: hidden; }
+  .t-prog-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #a78bfa); border-radius: 3px; animation: prog 4s ease-in-out infinite; }
+
+  /* ── ADVANCED ── */
+  .advanced-section { background: white; }
+
+  .advanced-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 3rem auto 0;
+  }
+
+  .adv-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: all 0.25s;
+  }
+
+  .adv-card:hover {
+    border-color: var(--purple-mid);
+    background: var(--purple-bg);
+    transform: translateX(4px);
+  }
+
+  .adv-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: white; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .adv-card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .adv-card p { font-size: 0.8rem; color: var(--text2); line-height: 1.5; }
+
+  /* ── PRICING ── */
+  .pricing-section { background: var(--bg); }
+  .pricing-header { text-align: center; margin-bottom: 3.5rem; }
+  .pricing-header .section-desc { margin: 0 auto; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .price-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .price-card:hover { box-shadow: 0 12px 40px rgba(91,33,182,0.1); transform: translateY(-4px); }
+
+  .price-card.popular {
+    border-color: var(--purple);
+    box-shadow: 0 8px 40px rgba(91,33,182,0.15);
+  }
+
+  .popular-tag {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--purple);
+    color: white; font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 4px 14px; border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .plan-tier { font-size: 0.75rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem; }
+  .price-card.popular .plan-tier { color: var(--purple); }
+
+  .plan-amount { display: flex; align-items: baseline; gap: 2px; margin-bottom: 0.2rem; }
+  .amount-dollar { font-size: 1.2rem; font-weight: 700; color: var(--text2); }
+  .amount-num { font-size: 3rem; font-weight: 800; letter-spacing: -2px; color: var(--text); line-height: 1; }
+  .amount-period { font-size: 0.8rem; color: var(--text3); margin-left: 2px; }
+  .plan-tagline { font-size: 0.82rem; color: var(--text3); margin-bottom: 1.5rem; }
+  .plan-divider { height: 1px; background: var(--border); margin-bottom: 1.5rem; }
+
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.75rem; }
+  .plan-features li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.84rem; color: var(--text2); }
+  .check-icon { color: var(--purple); font-size: 0.8rem; flex-shrink: 0; }
+  .x-icon { color: var(--border); font-size: 0.8rem; flex-shrink: 0; }
+  .price-card.popular .plan-features li { color: var(--text); }
+
+  .btn-plan {
+    width: 100%; padding: 11px;
+    border-radius: 10px; cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .btn-plan-outline { background: white; border: 1.5px solid var(--border); color: var(--text); }
+  .btn-plan-outline:hover { border-color: var(--purple); color: var(--purple); }
+  .btn-plan-solid { background: var(--purple); color: white; border: none; }
+  .btn-plan-solid:hover { background: var(--purple-light); box-shadow: 0 4px 16px rgba(91,33,182,0.3); }
+
+  .pricing-note { text-align: center; font-size: 0.8rem; color: var(--text3); margin-top: 1.5rem; }
+
+  /* ── STATS ── */
+  .stats-section {
+    padding: 64px 5%;
+    background: white;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .stat-num { font-size: 2.6rem; font-weight: 800; letter-spacing: -2px; color: var(--text); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-num.purple { color: var(--purple-light); }
+  .stat-label { font-size: 0.85rem; color: var(--text3); font-weight: 500; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 96px 5%;
+    text-align: center;
+    background: linear-gradient(160deg, var(--purple-dark) 0%, var(--purple) 60%, var(--purple-light) 100%);
+    position: relative; overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .cta-section > * { position: relative; }
+
+  .cta-section h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800; letter-spacing: -2px;
+    color: white; margin-bottom: 1rem; line-height: 1.1;
+  }
+
+  .cta-section p { color: rgba(255,255,255,0.75); font-size: 1.1rem; margin-bottom: 2.5rem; }
+
+  .cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+  .btn-cta-white {
+    background: white; color: var(--purple); text-decoration: none;
+    font-size: 0.95rem; font-weight: 700;
+    padding: 13px 28px; border-radius: 10px;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  .btn-cta-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  .btn-cta-outline-white {
+    background: rgba(255,255,255,0.12); color: white; text-decoration: none;
+    font-size: 0.95rem; font-weight: 600;
+    padding: 13px 28px; border-radius: 10px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  .btn-cta-outline-white:hover { background: rgba(255,255,255,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.5);
+    padding: 2.5rem 5%;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 800; color: white; font-size: 1rem; text-decoration: none;
+  }
+
+  .footer-logo .logo-mark { width: 26px; height: 26px; border-radius: 6px; font-size: 0.75rem; }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-center { display: none; }
+    .features-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .features-left { position: static; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pipeline-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .advanced-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .app-layout { grid-template-columns: 1fr; }
+    .app-sidebar { display: none; }
+    .cover-clips { flex-direction: column; gap: 1.5rem; }
+    .cover-arrow { flex-direction: row; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+    .ratings-section { gap: 0.75rem; }
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: white; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-mark">✂</div>
+    ClipForge AI
+  </a>
+  <div class="nav-center">
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#dashboard" class="nav-link">Dashboard</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#" class="nav-link">API</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="btn-signin">Sign In</a>
+    <a href="#" class="btn-nav-cta">Get clips for free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div style="padding:0 5%;">
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="badge-live"></div>
+      Powered by OpenAI Whisper &amp; GPT-4
+    </div>
+    <h1>Turn your long video into<br><span class="purple">viral clips</span> with AI magic</h1>
+    <p class="hero-sub">ClipForge uses AI to turn long-form videos into short clips ready for TikTok, Instagram Reels, YouTube Shorts, and more.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-cta-primary">⚡ Try it free — no sign up needed</a>
+      <a href="#" class="btn-cta-secondary">
+        <svg style="width:15px;height:15px;fill:currentColor;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        Watch demo
+      </a>
+    </div>
+    <span class="hero-note">No credit card required · Cancel anytime</span>
+  </div>
+</div>
+
+<!-- HERO VISUAL -->
+<div class="hero-cover">
+  <div class="hero-cover-inner">
+    <div class="cover-clips">
+      <div class="cover-long">
+        <button class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="video-duration">Podcast · 1h 12m</div>
+        <div class="cover-timeline">
+          <div class="cover-timeline-fill"></div>
+        </div>
+      </div>
+      <div class="cover-arrow">
+        <div class="ai-pill">✦ AI Processing</div>
+        <div class="arrow-line"></div>
+      </div>
+      <div class="cover-shorts">
+        <div class="clip-count-badge">+24 clips</div>
+        <div class="short-thumb">
+          <div class="short-thumb-bg"></div>
+          <div class="platform-dots"><div class="p-dot p-tiktok">T</div></div>
+          <div class="short-label">30s</div>
+        </div>
+        <div class="short-thumb">
+          <div class="short-thumb-bg"></div>
+          <div class="platform-dots"><div class="p-dot p-insta">I</div></div>
+          <div class="short-label">45s</div>
+        </div>
+        <div class="short-thumb">
+          <div class="short-thumb-bg"></div>
+          <div class="platform-dots"><div class="p-dot p-yt">Y</div></div>
+          <div class="short-label">60s</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-label">Trusted by creators at top companies worldwide</div>
+  <div style="overflow:hidden;">
+    <div class="marquee-track">
+      <div class="marquee-item">Google <span class="dot">·</span></div>
+      <div class="marquee-item">Ubisoft <span class="dot">·</span></div>
+      <div class="marquee-item">Stanford University <span class="dot">·</span></div>
+      <div class="marquee-item">HubSpot <span class="dot">·</span></div>
+      <div class="marquee-item">Shopify <span class="dot">·</span></div>
+      <div class="marquee-item">Morningstar <span class="dot">·</span></div>
+      <div class="marquee-item">Hopper <span class="dot">·</span></div>
+      <div class="marquee-item">Notion <span class="dot">·</span></div>
+      <div class="marquee-item">Figma <span class="dot">·</span></div>
+      <div class="marquee-item">LinkedIn <span class="dot">·</span></div>
+      <div class="marquee-item">Atlassian <span class="dot">·</span></div>
+      <div class="marquee-item">Stripe <span class="dot">·</span></div>
+      <div class="marquee-item">Google <span class="dot">·</span></div>
+      <div class="marquee-item">Ubisoft <span class="dot">·</span></div>
+      <div class="marquee-item">Stanford University <span class="dot">·</span></div>
+      <div class="marquee-item">HubSpot <span class="dot">·</span></div>
+      <div class="marquee-item">Shopify <span class="dot">·</span></div>
+      <div class="marquee-item">Morningstar <span class="dot">·</span></div>
+      <div class="marquee-item">Hopper <span class="dot">·</span></div>
+      <div class="marquee-item">Notion <span class="dot">·</span></div>
+      <div class="marquee-item">Figma <span class="dot">·</span></div>
+      <div class="marquee-item">LinkedIn <span class="dot">·</span></div>
+      <div class="marquee-item">Atlassian <span class="dot">·</span></div>
+      <div class="marquee-item">Stripe <span class="dot">·</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- RATINGS -->
+<div class="ratings-section">
+  <div class="total-users">
+    <div class="total-users-num">10M+</div>
+    <div class="total-users-label">creators & businesses</div>
+  </div>
+  <div class="rating-divider"></div>
+  <div class="rating-card">
+    <div class="rating-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    <div><div class="rating-num">4.8</div><div class="rating-source">G2</div></div>
+  </div>
+  <div class="rating-card">
+    <div class="rating-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    <div><div class="rating-num">4.9</div><div class="rating-source">Capterra</div></div>
+  </div>
+  <div class="rating-card">
+    <div class="rating-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    <div><div class="rating-num">4.9</div><div class="rating-source">Software Advice</div></div>
+  </div>
+  <div class="rating-card">
+    <div class="rating-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    <div><div class="rating-num">4.9</div><div class="rating-source">GetApp</div></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section reveal">
+  <div class="stats-grid">
+    <div><div class="stat-num purple">2M+</div><div class="stat-label">Shorts Generated</div></div>
+    <div><div class="stat-num">48K+</div><div class="stat-label">Active Creators</div></div>
+    <div><div class="stat-num purple">10×</div><div class="stat-label">Faster Than Manual</div></div>
+    <div><div class="stat-num">98%</div><div class="stat-label">Creator Satisfaction</div></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="how-section">
+  <div class="how-header reveal">
+    <div class="section-label">⚙ Process</div>
+    <h2 class="section-title">How ClipForge Works</h2>
+    <p class="section-desc">Four simple steps from raw video to viral-ready short clips.</p>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-card reveal">
+      <div class="step-number">Step 01</div>
+      <div class="step-icon-wrap">📤</div>
+      <h3>Upload or Paste Link</h3>
+      <p>Drop a video file or paste any YouTube, podcast, or webinar URL to get started instantly.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">Step 02</div>
+      <div class="step-icon-wrap">🧠</div>
+      <h3>AI Analyzes Content</h3>
+      <p>Whisper transcribes speech, NLP models parse meaning, and scene detection maps visual changes.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">Step 03</div>
+      <div class="step-icon-wrap">🔥</div>
+      <h3>Highlights Detected</h3>
+      <p>Our AI scores every moment for virality and marks the most engaging segments automatically.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">Step 04</div>
+      <div class="step-icon-wrap">🚀</div>
+      <h3>Export &amp; Publish</h3>
+      <p>Download 1080×1920 MP4 files or publish directly to TikTok, Reels, and YouTube Shorts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:white;padding:96px 5%;">
+  <div class="features-layout">
+    <div class="features-left reveal">
+      <div class="section-label">✦ Features</div>
+      <h2 class="section-title">Every tool you need to go viral</h2>
+      <p class="section-desc">A complete AI studio for short-form content — no editing experience required.</p>
+      <div style="margin-top:2rem;">
+        <a href="#" class="btn-cta-primary">Explore all features →</a>
+      </div>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card reveal"><span class="feat-emoji">🎯</span><h3>AI Highlight Detection</h3><p>Automatically identify the most engaging moments using speech energy, sentiment, and retention models.</p><span class="feat-badge badge-ai">Core AI</span></div>
+      <div class="feat-card reveal"><span class="feat-emoji">🎬</span><h3>Scene Detection</h3><p>Detect every topic change, scene cut, and energy shift to generate naturally flowing clips.</p></div>
+      <div class="feat-card reveal"><span class="feat-emoji">📱</span><h3>Auto Vertical Crop</h3><p>Smart 9:16 conversion with intelligent reframing — no black bars, no awkward cuts.</p><span class="feat-badge badge-new">New</span></div>
+      <div class="feat-card reveal"><span class="feat-emoji">👤</span><h3>Speaker Tracking</h3><p>Face detection keeps the primary speaker centered throughout every clip automatically.</p><span class="feat-badge badge-pro">Pro</span></div>
+      <div class="feat-card reveal"><span class="feat-emoji">💬</span><h3>Auto Captions</h3><p>Word-level synchronized subtitles in TikTok, bold, or kinetic styles with full customization.</p></div>
+      <div class="feat-card reveal"><span class="feat-emoji">📊</span><h3>AI Virality Score</h3><p>Every clip gets a virality prediction score so you know which to post first.</p><span class="feat-badge badge-ai">AI Powered</span></div>
+      <div class="feat-card reveal"><span class="feat-emoji">⚡</span><h3>Batch Generator</h3><p>Create 10–30 ready-to-post shorts from a single long video in minutes, not hours.</p></div>
+      <div class="feat-card reveal"><span class="feat-emoji">🎨</span><h3>Brand Templates</h3><p>Add logos, watermarks, background music, and branded lower-thirds with one click.</p><span class="feat-badge badge-pro">Pro</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section id="dashboard" class="dashboard-section">
+  <div class="dashboard-header reveal">
+    <div class="section-label">🖥 Creator Studio</div>
+    <h2 class="section-title">Your AI editing workspace</h2>
+    <p class="section-desc">Upload, configure, preview, and export — all without leaving the dashboard.</p>
+  </div>
+  <div class="browser-frame reveal">
+    <div class="browser-bar">
+      <div class="br-dot"></div><div class="br-dot"></div><div class="br-dot"></div>
+      <div class="br-url">app.clipforge.ai/studio</div>
+    </div>
+    <div class="app-layout">
+      <div class="app-sidebar">
+        <div class="sidebar-group-label">Workspace</div>
+        <div class="sidebar-item active">📂 Projects</div>
+        <div class="sidebar-item">📤 Upload Video</div>
+        <div class="sidebar-item">🕒 History</div>
+        <div class="sidebar-group-label">Tools</div>
+        <div class="sidebar-item">✂️ Clip Editor</div>
+        <div class="sidebar-item">💬 Captions</div>
+        <div class="sidebar-item">🎨 Brand Kit</div>
+        <div class="sidebar-group-label">Account</div>
+        <div class="sidebar-item">⚙️ Settings</div>
+        <div class="sidebar-item">💳 Billing</div>
+      </div>
+      <div class="app-main">
+        <div>
+          <div class="app-main-title">New Project</div>
+          <div style="font-size:0.8rem;color:var(--text3);margin-bottom:1rem;">Upload a video or paste a link to get started</div>
+          <div class="upload-zone">
+            <div class="upload-icon">☁️</div>
+            <h3>Drag &amp; drop your video here</h3>
+            <p>MP4, MOV, AVI up to 10GB — or paste a link below</p>
+          </div>
+          <div style="margin-top:0.6rem;" class="url-row">
+            <input class="url-input" type="text" placeholder="🔗 Paste YouTube, podcast, or webinar URL…">
+            <button class="btn-cta-primary" style="border-radius:8px;padding:10px 20px;font-size:0.875rem;">Analyze →</button>
+          </div>
+        </div>
+        <div class="settings-chips-row">
+          <div class="chip-group-wrap">
+            <label>Clip Duration</label>
+            <div class="chip-group">
+              <div class="chip">15s</div><div class="chip active">30s</div><div class="chip">45s</div><div class="chip">60s</div>
+            </div>
+          </div>
+          <div class="chip-group-wrap">
+            <label>Platform</label>
+            <div class="chip-group">
+              <div class="chip active">TikTok</div><div class="chip">Reels</div><div class="chip">Shorts</div><div class="chip">LinkedIn</div>
+            </div>
+          </div>
+          <div class="chip-group-wrap">
+            <label>Caption Style</label>
+            <div class="chip-group">
+              <div class="chip active">TikTok Bold</div><div class="chip">Kinetic</div><div class="chip">Minimal</div>
+            </div>
+          </div>
+        </div>
+        <div class="progress-block">
+          <div class="progress-top">
+            <span>Processing: podcast_interview_ep42.mp4</span>
+            <span class="progress-pct">78%</span>
+          </div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+          <div class="progress-sub">Generating clip 8 of 24 · ~2 min remaining</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section class="pipeline-section">
+  <div class="pipeline-grid">
+    <div>
+      <div class="section-label reveal">⚙ Pipeline</div>
+      <h2 class="section-title reveal">AI processing<br>under the hood</h2>
+      <p class="section-desc reveal" style="margin-bottom:3rem;">A full machine learning pipeline runs on every video — from raw footage to polished vertical short.</p>
+      <div class="pipeline-steps">
+        <div class="p-step reveal"><div class="p-icon">📥</div><div><h4>Download &amp; Extract</h4><p>Video downloaded, audio extracted as high-quality WAV</p></div></div>
+        <div class="p-step reveal"><div class="p-icon">🎤</div><div><h4>Whisper Transcription</h4><p>OpenAI Whisper transcribes speech with word-level timestamps</p></div></div>
+        <div class="p-step reveal"><div class="p-icon">🧬</div><div><h4>NLP Analysis</h4><p>Sentiment scoring, topic modeling, and hook detection on transcript</p></div></div>
+        <div class="p-step reveal"><div class="p-icon">✂️</div><div><h4>FFmpeg Cutting</h4><p>Highlight segments cut, reframed 9:16, and captions burned in</p></div></div>
+        <div class="p-step reveal"><div class="p-icon">📤</div><div><h4>Export 1080×1920</h4><p>High-quality H.264 MP4 files uploaded to cloud storage</p></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="terminal">
+        <div class="terminal-top">
+          <div class="t-d"></div><div class="t-d"></div><div class="t-d"></div>
+          <span class="terminal-title">clipforge-engine · v3.2.1</span>
+        </div>
+        <div class="terminal-body">
+          <div class="tl"><span class="tp">›</span><span class="tc">clipforge process "podcast_ep42.mp4"</span></div>
+          <div class="tl"><span class="to">  ⟳ Downloading audio stream…</span></div>
+          <div class="tl"><span class="ts">  ✓ Audio extracted [44.1kHz WAV]</span></div>
+          <div class="tl"><span class="to">  ⟳ Whisper transcribing speech…</span></div>
+          <div class="tl"><span class="ts">  ✓ 47,382 words transcribed</span></div>
+          <div class="tl"><span class="to">  ⟳ Running NLP pipeline…</span></div>
+          <div class="tl"><span class="ts">  ✓ 31 highlight segments found</span></div>
+          <div class="tl"><span class="tw">  ⚡ Top virality score: 94/100</span></div>
+          <div class="tl"><span class="to">  ⟳ Generating vertical clips…</span></div>
+          <div class="t-prog-bar"><div class="t-prog-fill"></div></div>
+          <div class="tl"><span class="to">     78% · clip 8 of 24</span></div>
+          <div class="tl"><span class="to">  ⟳ Burning captions to clip 8…</span></div>
+          <div class="tl"><span class="tp">›</span><span class="tc">_</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANCED AI -->
+<section class="advanced-section">
+  <div style="text-align:center;" class="reveal">
+    <div class="section-label">🤖 Intelligence</div>
+    <h2 class="section-title">Advanced AI features</h2>
+    <p class="section-desc" style="margin:0 auto;">Go beyond cutting — grow your channel with intelligent automation.</p>
+  </div>
+  <div class="advanced-grid">
+    <div class="adv-card reveal"><div class="adv-icon">🪝</div><div><h3>AI Hook Detection</h3><p>Detect opening hooks that grab attention in the first 3 seconds — the most critical moment for viewer retention.</p></div></div>
+    <div class="adv-card reveal"><div class="adv-icon">✍️</div><div><h3>Auto Title Generator</h3><p>Generate click-worthy YouTube and TikTok titles tailored to each clip's content using GPT-4.</p></div></div>
+    <div class="adv-card reveal"><div class="adv-icon">#️⃣</div><div><h3>Hashtag Generator</h3><p>Surface relevant, trending hashtags per platform to maximize reach and discoverability for each short.</p></div></div>
+    <div class="adv-card reveal"><div class="adv-icon">📡</div><div><h3>Auto Social Posting</h3><p>Schedule and publish clips directly to TikTok, Instagram, YouTube, and LinkedIn without leaving the app.</p></div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing-section">
+  <div class="pricing-header reveal">
+    <div class="section-label">💰 Pricing</div>
+    <h2 class="section-title">Simple, creator-first pricing</h2>
+    <p class="section-desc">Start free. Scale when you're ready. No hidden fees.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <div class="plan-tier">Free</div>
+      <div class="plan-amount"><span class="amount-dollar">$</span><span class="amount-num">0</span></div>
+      <div class="plan-tagline">Forever free to start</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="check-icon">✓</span> 5 shorts per month</li>
+        <li><span class="check-icon">✓</span> Up to 30-min videos</li>
+        <li><span class="check-icon">✓</span> Auto captions</li>
+        <li><span class="check-icon">✓</span> 720p export</li>
+        <li><span class="x-icon">✕</span> <span style="color:var(--text3)">Batch generation</span></li>
+        <li><span class="x-icon">✕</span> <span style="color:var(--text3)">Speaker tracking</span></li>
+      </ul>
+      <button class="btn-plan btn-plan-outline">Get started free</button>
+    </div>
+    <div class="price-card popular reveal">
+      <div class="popular-tag">✦ Most Popular</div>
+      <div class="plan-tier">Creator</div>
+      <div class="plan-amount"><span class="amount-dollar">$</span><span class="amount-num">19</span><span class="amount-period">/mo</span></div>
+      <div class="plan-tagline">Billed monthly · cancel anytime</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="check-icon">✓</span> 50 shorts per month</li>
+        <li><span class="check-icon">✓</span> Unlimited video length</li>
+        <li><span class="check-icon">✓</span> 1080p export</li>
+        <li><span class="check-icon">✓</span> Speaker tracking</li>
+        <li><span class="check-icon">✓</span> AI virality score</li>
+        <li><span class="check-icon">✓</span> Batch generator (20 clips)</li>
+        <li><span class="check-icon">✓</span> Brand watermark</li>
+      </ul>
+      <button class="btn-plan btn-plan-solid">Start Creator Plan</button>
+    </div>
+    <div class="price-card reveal">
+      <div class="plan-tier">Pro</div>
+      <div class="plan-amount"><span class="amount-dollar">$</span><span class="amount-num">49</span><span class="amount-period">/mo</span></div>
+      <div class="plan-tagline">For serious creators &amp; teams</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="check-icon">✓</span> <strong>Unlimited</strong> shorts</li>
+        <li><span class="check-icon">✓</span> Batch generator (30+)</li>
+        <li><span class="check-icon">✓</span> Auto social posting</li>
+        <li><span class="check-icon">✓</span> AI hook detection</li>
+        <li><span class="check-icon">✓</span> Auto title + hashtags</li>
+        <li><span class="check-icon">✓</span> Priority rendering</li>
+        <li><span class="check-icon">✓</span> API access</li>
+      </ul>
+      <button class="btn-plan btn-plan-outline">Start Pro Plan</button>
+    </div>
+  </div>
+  <p class="pricing-note reveal">All plans include a 7-day free trial · Powered by Stripe · Cancel anytime</p>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label" style="background:rgba(255,255,255,0.15);color:white;">🚀 Get Started</div>
+  <h2 style="margin-top:1rem;" class="reveal">One video.<br>Thirty viral clips.</h2>
+  <p class="reveal">Join 48,000+ creators already saving hours of editing time every week.</p>
+  <div class="cta-btns reveal">
+    <a href="#" class="btn-cta-white">⚡ Try it free — no sign up needed</a>
+    <a href="#" class="btn-cta-outline-white">View all features →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <div class="logo-mark">✂</div>
+    ClipForge AI
+  </a>
+  <div class="footer-links">
+    <a href="#">Product</a>
+    <a href="#">Pricing</a>
+    <a href="#">Blog</a>
+    <a href="#">API</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+  <div style="font-size:0.78rem;">© 2026 ClipForge AI. All rights reserved.</div>
+</footer>
+
+<script>
+const els = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.07 });
+els.forEach(el => obs.observe(el));
+
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const group = chip.parentElement;
+    group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
